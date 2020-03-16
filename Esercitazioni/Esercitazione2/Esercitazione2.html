@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0062)https://season-lab.github.io/PFP/training/labs/T02-200316.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Esercitazione del 16 marzo 2020 - Programmazione Funzionale e Parallela</title>
+	
+	
+	<meta name="keywords" content="Programmazione funzionale, programmazione parallela, linguaggio Scala, multicore">
+	<meta name="description" content="">
+	<link rel="stylesheet" type="text/css" href="./Esercitazione del 16 marzo 2020 - Programmazione Funzionale e Parallela_files/css_sapienza.css">
+	<link rel="stylesheet" type="text/css" href="./Esercitazione del 16 marzo 2020 - Programmazione Funzionale e Parallela_files/css_print.css" media="print">
+	<link rel="icon" href="https://season-lab.github.io/PFP/assets/images/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="https://season-lab.github.io/PFP/assets/images/favicon.ico" type="image/x-icon">
+
+	<link rel="stylesheet" href="./Esercitazione del 16 marzo 2020 - Programmazione Funzionale e Parallela_files/default.css">
+	<script type="text/javascript" src="./Esercitazione del 16 marzo 2020 - Programmazione Funzionale e Parallela_files/highlight.pack.js"></script>
+	<script type="text/javascript">
+		hljs.initHighlightingOnLoad();
+	</script>
+
+</head>
+
+<body>
+<div class="header">
+
+<h2>Programmazione Funzionale e Parallela</h2>
+
+<h3>Corso di Laurea in Ingegneria Informatica e Automatica - A.A. 2019-2020</h3>
+
+	<a href="https://season-lab.github.io/PFP/">Home</a> |
+	<a href="https://season-lab.github.io/PFP/Avvisi">Avvisi</a> | 
+	<a href="https://season-lab.github.io/PFP/DiarioLezioni">Diario lezioni</a> |  
+	<a href="https://season-lab.github.io/PFP/Esercitazioni">Esercitazioni</a> |  
+	<a href="https://season-lab.github.io/PFP/MaterialeDidattico">Materiale didattico</a> | 
+	<a href="https://season-lab.github.io/PFP/Esami">Esami</a> | 
+	<a href="https://season-lab.github.io/PFP/ValutazioniStudenti">Valutazioni studenti</a> <!-- | 
+	<a href="/PFP/Forum">Forum</a> -->
+ 	
+</div>
+
+<!--starting page content-->
+<div class="page">
+
+<h4 id="esercitazione-del-16-marzo-2020">Esercitazione del 16 marzo 2020</h4>
+
+<h5 id="istruzioni-per-lesercitazione">Istruzioni per l’esercitazione:</h5>
+
+<ul>
+  <li>Aprite il <a href="https://forms.gle/PJaozEXwFrNFLmzZA">form di consegna</a> in un browser e loggatevi con le vostre credenziali <code class="language-plaintext highlighter-rouge">uniroma1</code>.</li>
+  <li>Scaricate e decomprimete sulla scrivania il <a href="https://season-lab.github.io/PFP/training/labs/T02-200316.zip">codice dell’esercitazione</a>. Vi sarà una sotto-directory separata per ciascun esercizio di programmazione. 
+Non modificate in alcun modo i programmi di test <code class="language-plaintext highlighter-rouge">E*Main.scala</code>.</li>
+  <li>Rinominare la directory chiamandola <code class="language-plaintext highlighter-rouge">cognome.nome</code>. Sulle postazioni del laboratorio sarà <code class="language-plaintext highlighter-rouge">/home/studente/Desktop/cognome.nome/</code>.</li>
+  <li>È possibile consultare appunti/libri e il materiale didattico online.</li>
+  <li>Rispondete alle domande online sul modulo di consegna.</li>
+  <li><strong>Finiti gli esercizi</strong>, e non oltre le 23:00:
+    <ul>
+      <li><strong>zippate la directory di lavoro</strong> in <code class="language-plaintext highlighter-rouge">cognome.nome.zip</code> (<code class="language-plaintext highlighter-rouge">zip -r cognome.nome.zip cognome.nome/</code>).</li>
+    </ul>
+  </li>
+  <li><strong>Per consegnare</strong>:
+    <ul>
+      <li>inserite nel form di consegna come autovalutazione il punteggio di ciascuno dei test forniti (inserite zero se l’esercizio non è stato svolto, non compila, o dà errore di esecuzione).</li>
+      <li>fate <strong>upload</strong> del file <code class="language-plaintext highlighter-rouge">cognome.nome.zip</code>.</li>
+    </ul>
+  </li>
+  <li>È possibile consultare la documentazione delle <a href="https://www.scala-lang.org/api/current/index.html">API di Scala</a>, in particolare quelle sulle <a href="https://www.scala-lang.org/api/current/scala/collection/immutable/List.html">liste</a>, e la <a href="https://docs.google.com/document/d/1M1EtsCXsbIdqXLAF4dxy2ppLIBeX5Y3gdany-MYx_9A/edit#">dispensa Scala</a>.</li>
+  <li><strong>Se avete domande</strong> accedete a Google Meet all’indirizzo <a href="https://meet.google.com/rey-xdve-rug">meet.google.com/rey-xdve-rug</a> durante orario 14:00-16:00 stabilito per l’esercitazione accedendo con la vostra <strong>mail istituzionale</strong>. Troverete online il docente e il tutor del corso. In alternativa, scrivete via email.</li>
+</ul>
+
+<p>Per maggiori informazioni fate riferimento al <a href="https://season-lab.github.io/PFP/Esami">regolamento delle esercitazioni</a>.</p>
+
+<h5 id="esercizio-1-somma-di-funzioni">Esercizio 1 (somma di funzioni)</h5>
+
+<p>Scrivere una funzione <code class="language-plaintext highlighter-rouge">sommaFun(f1:Double=&gt;Double, f2:Double=&gt;Double):Double=&gt;Double</code>
+che restituisce la funzione somma di <code class="language-plaintext highlighter-rouge">f1</code> ed <code class="language-plaintext highlighter-rouge">f2</code>. Ad esempio:
+<code class="language-plaintext highlighter-rouge">sommaFun(x=&gt;x, x=&gt;x+1)(2) == 5</code> (ottenuto come: <code class="language-plaintext highlighter-rouge">2+(2+1)</code>), 
+<code class="language-plaintext highlighter-rouge">sommaFun(x=&gt;2*x, x=&gt;x+2)(3) == 11</code> (ottenuto come: <code class="language-plaintext highlighter-rouge">(2*3)+(3+2)</code>)</p>
+
+<p>Per compilare da riga di comando usare: <code class="language-plaintext highlighter-rouge">scalac E1Main.scala E1.scala</code>. Si noti che sulla riga di comando ci sono entrambi i file che compongono il programma. Noterete la presenza di vari file <code class="language-plaintext highlighter-rouge">.class</code> generati dalla compilazione.</p>
+
+<p>Per eseguire il programma da riga di comando usare: <code class="language-plaintext highlighter-rouge">scala E1Main</code>. Si noti che, come in Java, al comando <code class="language-plaintext highlighter-rouge">scala</code> viene passato il nome della classe.</p>
+
+<h5 id="esercizio-2-corrispondenza-di-liste">Esercizio 2 (corrispondenza di liste)</h5>
+
+<p>Scrivere una funzione <code class="language-plaintext highlighter-rouge">corrisp[A,B](a:List[A], b:List[B], f:A=&gt;B):Boolean</code> che 
+restituisce <code class="language-plaintext highlighter-rouge">true</code> se e solo se per ogni indice <code class="language-plaintext highlighter-rouge">i</code> comune a entrambe le liste vale 
+<code class="language-plaintext highlighter-rouge">b(i)=f(a(i))</code>. Se una lista è più lunga dell’altra, gli elementi in eccedenza devono essere
+ignorati.</p>
+
+<p>Scrivere la soluzione nel file <code class="language-plaintext highlighter-rouge">E2.scala</code> e usare il programma di prova <code class="language-plaintext highlighter-rouge">E2Main.scala</code>.</p>
+
+<h5 id="esercizio-3-prefissi-di-liste">Esercizio 3 (prefissi di liste)</h5>
+
+<p>Scrivere una funzione <code class="language-plaintext highlighter-rouge">maxPrefisso(l:List[Int], x:Int):Int</code> Scala che restituisce il 
+più grande numero <code class="language-plaintext highlighter-rouge">n</code> tale che la somma dei primi <code class="language-plaintext highlighter-rouge">n</code> numeri di <code class="language-plaintext highlighter-rouge">l</code> è minore o uguale a <code class="language-plaintext highlighter-rouge">x</code>. 
+Ad esempio, <code class="language-plaintext highlighter-rouge">maxPrefisso(List(1,1,1,1,1),3) == 3</code>, <code class="language-plaintext highlighter-rouge">maxPrefisso(List(5,2,4,7),8)==2</code> e
+<code class="language-plaintext highlighter-rouge">maxPrefisso(List(5,2,4,7),4)==0</code>.</p>
+
+<p>Scrivere la soluzione nel file <code class="language-plaintext highlighter-rouge">E3.scala</code> e usare il programma di prova <code class="language-plaintext highlighter-rouge">E3Main.scala</code>.</p>
+
+<h5 id="esercizio-4-sequenze-bitoniche">Esercizio 4 (sequenze bitoniche)</h5>
+
+<p>Una <em>sequenza bitonica</em> è formata da una sequenza non vuota strettamente crescente 
+seguita da una sequenza non vuota strettamente decrescente, ad esempio: 
+<code class="language-plaintext highlighter-rouge">List(1,2,5,6,9,4,3,2,0)</code> è bitonica, mentre <code class="language-plaintext highlighter-rouge">List(1,2,3,2,3,2,1)</code>, <code class="language-plaintext highlighter-rouge">List(1,2,3)</code> e <code class="language-plaintext highlighter-rouge">List()</code> 
+non lo sono.</p>
+
+<p>Scrivere una funzione <code class="language-plaintext highlighter-rouge">checkBitonic(l:List[Int]):(List[Int],List[Int])</code> che, data una 
+lista <code class="language-plaintext highlighter-rouge">l</code> bitonica, restituisce <code class="language-plaintext highlighter-rouge">(inc,dec)</code> tale che <code class="language-plaintext highlighter-rouge">inc</code> è il prefisso crescente di 
+<code class="language-plaintext highlighter-rouge">l</code> che include l’elemento massimo e <code class="language-plaintext highlighter-rouge">dec</code> è il suffisso strettamente decrescente che 
+segue (si ha che <code class="language-plaintext highlighter-rouge">inc ::: dec == l</code>). Se invece <code class="language-plaintext highlighter-rouge">l</code> non è bitonica, la 
+funzione restituisce <code class="language-plaintext highlighter-rouge">(Nil,Nil)</code>.</p>
+
+<p>Scrivere la soluzione nel file <code class="language-plaintext highlighter-rouge">E4.scala</code> e usare il  programma di prova <code class="language-plaintext highlighter-rouge">E4Main.scala</code>.</p>
+
+<!--
+##### Soluzioni
+
+```scala
+object E1 {
+    def sommaFun(f1:Double=>Double, f2:Double=>Double) = (x:Double) => f1(x)+f2(x)
+}
+```
+
+```scala
+object E2 {
+    def corrisp[A,B](a:List[A], b:List[B], f:A=>B) = a.zip(b).forall(t=>t._2 == f(t._1))        
+}
+```
+
+```scala
+object E3 {
+    def maxPrefisso(l:List[Int], x:Int) = {
+        def aux(t:List[Int], s:Int, n:Int):Int = 
+            if (t.isEmpty || s + t.head > x) n
+            else aux(t.tail, s + t.head, n+1)
+        aux(l, 0, 0)
+    }
+}
+```
+
+```scala
+object E4 {
+    def checkBitonic(l:List[Int]):(List[Int],List[Int]) = {
+        val max = l.zipWithIndex.sliding(3,1).filter(t => t(0)._1 < t(1)._1 && t(1)._1 > t(2)._1).toList
+        if (max.length != 1) (Nil,Nil)
+        else (l.take(max.head(2)._2), l.drop(max.head(2)._2))
+    }
+}
+```
+-->
+
+
+</div>
+<!--closing page content-->
+
+<p style="text-align: center;">
+	<a href="https://validator.w3.org/check/referrer">
+		<img src="./Esercitazione del 16 marzo 2020 - Programmazione Funzionale e Parallela_files/valid-xhtml10" alt="Valid XHTML 1.0 Transitional" height="31" width="88">
+	</a>&nbsp;&nbsp;&nbsp;
+    <a href="https://jigsaw.w3.org/css-validator/check/referer">
+        <img style="border:0;width:88px;height:31px" src="./Esercitazione del 16 marzo 2020 - Programmazione Funzionale e Parallela_files/vcss" alt="Valid CSS!">
+    </a>
+</p>
+
+<script type="text/javascript">
+	//<![CDATA[
+	var cusid_ele = document.getElementsByClassName('language-scala');
+	for (var i = 0; i < cusid_ele.length; ++i) {
+	    var elem = cusid_ele[i].getElementsByTagName("code")[0];
+		elem.className = "hljs scala";
+	}
+	var cusid_ele = document.getElementsByClassName('language-cpp');
+	for (var i = 0; i < cusid_ele.length; ++i) {
+	    var elem = cusid_ele[i].getElementsByTagName("code")[0];
+		elem.className = "hljs cpp";
+	}
+	//]]>
+</script>
+
+
+
+</body></html>
