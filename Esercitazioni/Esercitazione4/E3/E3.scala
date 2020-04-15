@@ -11,17 +11,7 @@ Si consulti la documentazione delle API Scala per cercare metodi utili.
 
 object E3 {
     def noobSort[T](v : Vector[T])(implicit cmp : T => Ordered[T]) : Vector[T] = {
-        def permutations(v : Vector[T]) : Vector[Vector[T]] = {
-            if (v.size <= 1) Vector(v)
-            else {
-                for {
-                    x <- v
-                    y <- permutations(v diff Vector(x))
-                } yield x +: y
-            }
-        }
-
-        val p = permutations(v)
-        (p.filter(x => x == x.sorted))(0)
+        val p = v.permutations
+        p.find(x => x == x.sorted).get
     }
 }
