@@ -21,7 +21,7 @@ int inrange_sse(const shor* data, unsigned n, short min, short max) {
 		datav = _mm_loadu_si128(const __m128*)(data + i));
 
 		// comparazione vettoriale val datav >= val min (datav >= min <--> datav > min-1)
-		// il risultato ha val = -1 se val datav > val minv, 0 altrimenti
+		// il risultato ha val = 1 se val datav > val minv, 0 altrimenti
 		res = _mm_cmpgt_epi16(datav, minv);
 
 		// se in tutti i casi i valori di datav >= valori di minv
