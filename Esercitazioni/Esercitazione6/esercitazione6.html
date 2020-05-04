@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0062)https://season-lab.github.io/PFP/training/labs/T06-200504.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Esercitazione del 4 maggio 2020 - Programmazione Funzionale e Parallela</title>
+	
+	
+	<meta name="keywords" content="Programmazione funzionale, programmazione parallela, linguaggio Scala, multicore">
+	<meta name="description" content="">
+	<link rel="stylesheet" type="text/css" href="./esercitazione6_files/css_sapienza.css">
+	<link rel="stylesheet" type="text/css" href="./esercitazione6_files/css_print.css" media="print">
+	<link rel="icon" href="https://season-lab.github.io/PFP/assets/images/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="https://season-lab.github.io/PFP/assets/images/favicon.ico" type="image/x-icon">
+
+	<link rel="stylesheet" href="./esercitazione6_files/default.css">
+	<script type="text/javascript" src="./esercitazione6_files/highlight.pack.js"></script>
+	<script type="text/javascript">
+		hljs.initHighlightingOnLoad();
+	</script>
+
+</head>
+
+<body>
+<div class="header">
+
+<h2>Programmazione Funzionale e Parallela</h2>
+
+<h3>Corso di Laurea in Ingegneria Informatica e Automatica - A.A. 2019-2020</h3>
+
+	<a href="https://season-lab.github.io/PFP/">Home</a> |
+	<a href="https://season-lab.github.io/PFP/Avvisi">Avvisi</a> | 
+	<a href="https://season-lab.github.io/PFP/DiarioLezioni">Diario lezioni</a> |  
+	<a href="https://season-lab.github.io/PFP/Esercitazioni">Esercitazioni</a> |  
+	<a href="https://season-lab.github.io/PFP/MaterialeDidattico">Materiale didattico</a> | 
+	<a href="https://season-lab.github.io/PFP/Esami">Esami</a> | 
+	<a href="https://season-lab.github.io/PFP/ValutazioniStudenti">Valutazioni studenti</a> <!-- | 
+	<a href="/PFP/Forum">Forum</a> -->
+ 	
+</div>
+
+<!--starting page content-->
+<div class="page">
+
+<h4 id="esercitazione-del-4-maggio-2020">Esercitazione del 4 maggio 2020</h4>
+
+<h5 id="istruzioni-per-lesercitazione">Istruzioni per l’esercitazione:</h5>
+
+<ul>
+  <li>Aprite il <a href="https://forms.gle/z2K5mWXseYA1Mm457">form di consegna</a> in un browser e loggatevi con le vostre credenziali <code class="language-plaintext highlighter-rouge">uniroma1</code>.</li>
+  <li>Scaricate e decomprimete sulla scrivania il <a href="https://season-lab.github.io/PFP/training/labs/T06-200504.zip">codice dell’esercitazione</a>. Vi sarà una sotto-directory separata per ciascun esercizio di programmazione. 
+Non modificate in alcun modo i programmi di test <code class="language-plaintext highlighter-rouge">E*Main.scala</code>.</li>
+  <li>Rinominare la directory chiamandola <code class="language-plaintext highlighter-rouge">cognome.nome</code>. Sulle postazioni del laboratorio sarà <code class="language-plaintext highlighter-rouge">/home/studente/Desktop/cognome.nome/</code>.</li>
+  <li>È possibile consultare appunti/libri e il materiale didattico online.</li>
+  <li>Rispondete alle domande online sul modulo di consegna.</li>
+  <li><strong>Finiti gli esercizi</strong>, e non oltre le 23:59:
+    <ul>
+      <li><strong>zippate la directory di lavoro</strong> in <code class="language-plaintext highlighter-rouge">cognome.nome.zip</code> (<code class="language-plaintext highlighter-rouge">zip -r cognome.nome.zip cognome.nome/</code>).</li>
+    </ul>
+  </li>
+  <li><strong>Per consegnare</strong>:
+    <ul>
+      <li>inserite nel form di consegna come autovalutazione il punteggio di ciascuno dei test forniti (inserite zero se l’esercizio non è stato svolto, non compila, o dà errore di esecuzione).</li>
+      <li>fate <strong>upload</strong> del file <code class="language-plaintext highlighter-rouge">cognome.nome.zip</code>.</li>
+    </ul>
+  </li>
+  <li><strong>Se avete domande</strong> accedete a Google Meet all’indirizzo <a href="https://meet.google.com/sph-eiax-fsv">meet.google.com/sph-eiax-fsv</a> durante orario 14:00-16:00 stabilito per l’esercitazione accedendo con la vostra <strong>mail istituzionale</strong>. Troverete online il docente e il tutor del corso. In alternativa, scrivete via email.</li>
+</ul>
+
+<p>Per maggiori informazioni fate riferimento al <a href="https://season-lab.github.io/PFP/Esami">regolamento delle esercitazioni</a>.</p>
+
+<h5 id="esercizio-1-ciclo-interno-prodotto-di-matrici-con-vettorizzazione">Esercizio 1 (ciclo interno prodotto di matrici con vettorizzazione)</h5>
+
+<p>Si scriva una versione vettorizzata SSE o AVX <code class="language-plaintext highlighter-rouge">add_prod</code> della seguente funzione <code class="language-plaintext highlighter-rouge">add_prod_seq</code> inclusa nel file <code class="language-plaintext highlighter-rouge">E3/e3.c</code> scaricato:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="hljs java"><span class="k"><span class="hljs-function"><span class="hljs-keyword">static</span></span></span><span class="hljs-function"> </span><span class="kt"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="nf"><span class="hljs-function"><span class="hljs-title">add_prod_seq</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">(</span></span></span><span class="k"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="kt"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">short</span></span></span></span><span class="o"><span class="hljs-function"><span class="hljs-params">*</span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="n"><span class="hljs-function"><span class="hljs-params">src</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">,</span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="kt"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">short</span></span></span></span><span class="o"><span class="hljs-function"><span class="hljs-params">*</span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="n"><span class="hljs-function"><span class="hljs-params">dst</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">,</span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="kt"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">short</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="n"><span class="hljs-function"><span class="hljs-params">x</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">,</span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="kt"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="n"><span class="hljs-function"><span class="hljs-params">n</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">)</span></span></span><span class="hljs-function"> </span><span class="p">{</span>
+    <span class="kt"><span class="hljs-keyword">int</span></span> <span class="n">j</span><span class="p">;</span>
+    <span class="k"><span class="hljs-keyword">for</span></span> <span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="mi"><span class="hljs-number">0</span></span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="n">dst</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">src</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>La funzione realizza il ciclo più interno in un codice di prodotto di matrici di <code class="language-plaintext highlighter-rouge">short</code>.</p>
+
+<p><em>Suggerimento.</em> Se si opta per SSE, usare in particolare:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_mm_set1_epi16</code> per costruire un <code class="language-plaintext highlighter-rouge">__m128i</code> con tutti i suoi <code class="language-plaintext highlighter-rouge">short</code> inizializzati a un valore specifico;</li>
+  <li><code class="language-plaintext highlighter-rouge">_mm_mullo_epi16</code> per effettuare il prodotto elemento a elemento di due <code class="language-plaintext highlighter-rouge">__m128i</code> che contengono ciascuno 8 <code class="language-plaintext highlighter-rouge">short</code>.</li>
+</ul>
+
+<p>Si veda <a href="https://software.intel.com/sites/landingpage/IntrinsicsGuide/">il sito Intel</a> e la <a href="https://docs.google.com/document/d/1hyBpXDp_f5GIFkDNSz-FP-yJtT72nSd7F2nUrhNxiWI">dispensa sul parallelismo</a> per la documentazione sugli intrinsic SSE/AVX.</p>
+
+<p>Usare il main di prova nella directory di lavoro <code class="language-plaintext highlighter-rouge">E1</code> digitando <code class="language-plaintext highlighter-rouge">make</code> per compilare e <code class="language-plaintext highlighter-rouge">./es1</code> per eseguire il programma. Testare inoltre il codice con <code class="language-plaintext highlighter-rouge">valgrind ./e1</code>. Non modificare alcun file tranne <code class="language-plaintext highlighter-rouge">e1.c</code> e nessuna funzione in <code class="language-plaintext highlighter-rouge">e1.c</code> tranne <code class="language-plaintext highlighter-rouge">add_prod</code>.</p>
+
+<h5 id="esercizio-2-numero-di-occorrenze-in-array-con-vettorizzazione">Esercizio 2 (numero di occorrenze in array con vettorizzazione)</h5>
+
+<p>Si scriva una versione vettorizzata SSE o AVX <code class="language-plaintext highlighter-rouge">count_occ</code> della seguente funzione <code class="language-plaintext highlighter-rouge">count_occ_seq</code> inclusa nel file <code class="language-plaintext highlighter-rouge">E4/e4.c</code> scaricato:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code class="hljs java"><span class="kt"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="nf"><span class="hljs-function"><span class="hljs-title">count_occ_seq</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">(</span></span></span><span class="k"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="kt"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char</span></span></span></span><span class="o"><span class="hljs-function"><span class="hljs-params">*</span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="n"><span class="hljs-function"><span class="hljs-params">v</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">,</span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="kt"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="n"><span class="hljs-function"><span class="hljs-params">n</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">,</span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="kt"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="n"><span class="hljs-function"><span class="hljs-params">x</span></span></span><span class="p"><span class="hljs-function"><span class="hljs-params">)</span></span></span><span class="hljs-function"> </span><span class="p">{</span>
+    <span class="kt"><span class="hljs-keyword">int</span></span> <span class="n">i</span><span class="p">,</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi"><span class="hljs-number">0</span></span><span class="p">;</span>
+    <span class="k"><span class="hljs-keyword">for</span></span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi"><span class="hljs-number">0</span></span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="n">cnt</span> <span class="o">+=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span><span class="p">;</span>
+    <span class="k"><span class="hljs-keyword">return</span></span> <span class="n">cnt</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>La funzione conta il numero di occorrenze di <code class="language-plaintext highlighter-rouge">x</code> nell’array <code class="language-plaintext highlighter-rouge">v</code> di lunghezza <code class="language-plaintext highlighter-rouge">n</code>.</p>
+
+<p><em>Suggerimento.</em> Se si opta per SSE, usare in particolare:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">_mm_set1_epi8</code> per costruire un <code class="language-plaintext highlighter-rouge">__m128i</code> con tutti i 16 byte inizializzati a un valore <code class="language-plaintext highlighter-rouge">char</code> specifico;</li>
+  <li><code class="language-plaintext highlighter-rouge">_mm_setzero_si128</code> per costruire un <code class="language-plaintext highlighter-rouge">__m128i</code> con tutti i 128 bit a zero;</li>
+  <li><code class="language-plaintext highlighter-rouge">_mm_cmpeq_epi8(a,b)</code> che restituisce un <code class="language-plaintext highlighter-rouge">__m128i</code> in cui l’i-esimo byte è <code class="language-plaintext highlighter-rouge">0xFF</code> se gli i-esimi byte di <code class="language-plaintext highlighter-rouge">a</code> e <code class="language-plaintext highlighter-rouge">b</code> sono uguali, e <code class="language-plaintext highlighter-rouge">0x00</code> altrimenti.</li>
+</ul>
+
+<p>Si veda per ispirazione la soluzione dell’esercizio <code class="language-plaintext highlighter-rouge">cdiff</code> discussa in dettaglio nella <a href="https://season-lab.github.io/PFP/DiarioLezioni">lezione del 27 aprile 2020</a>.</p>
+
+<p>Usare il main di prova nella directory di lavoro <code class="language-plaintext highlighter-rouge">E2</code> digitando <code class="language-plaintext highlighter-rouge">make</code> per compilare e <code class="language-plaintext highlighter-rouge">./es2</code> per eseguire il programma. Testare inoltre il codice con <code class="language-plaintext highlighter-rouge">valgrind ./e2</code>. Non modificare alcun file tranne <code class="language-plaintext highlighter-rouge">e4.c</code> e nessuna funzione in <code class="language-plaintext highlighter-rouge">e2.c</code> tranne <code class="language-plaintext highlighter-rouge">count_occ</code>.</p>
+
+<!--
+##### Soluzioni
+
+##### Esercizio 1 (ciclo interno prodotto di matrici con vettorizzazione)
+
+```c
+static void add_prod(const short* src, short* dst, short x, int n) {
+    int j;
+    __m128i vx = _mm_set1_epi16(x);
+    for (j=0; j+7<n; j+=8) {
+        __m128i vdst = _mm_loadu_si128((const __m128i*)(dst+j));
+        __m128i vsrc = _mm_loadu_si128((const __m128i*)(src+j));
+        __m128i vmul = _mm_mullo_epi16(vx, vsrc);
+        vdst = _mm_add_epi16(vdst, vmul);
+        _mm_storeu_si128((__m128i*)(dst+j), vdst);
+    }
+    for (; j<n; ++j) dst[j] += x * src[j];
+}
+```
+
+##### Esercizio 2 (numero di occorrenze in array con vettorizzazione)
+
+```c
+int count_occ(const char* v, int n, char x) {
+    int i, j, cnt = 0;
+    char buf[16];
+    __m128i vx   = _mm_set1_epi8(x);    // equiv. to _mm_set_epi8(x,x,x,x,...)
+    __m128i vcnt = _mm_setzero_si128(); // equiv. to _mm_set_epi8(0,0,0,0,...)
+    for (i=0; i+15<n; i+=16) {
+        __m128i vv   = _mm_loadu_si128((const __m128i*)(v+i));
+        __m128i vres = _mm_cmpeq_epi8(vv, vx);
+        vcnt = _mm_add_epi8(vres, vcnt);
+        if (i % 255 == 0) {
+            _mm_storeu_si128((__m128i*)buf, vcnt);
+            for (j=0; j<16; ++j) cnt -= buf[j];
+            vcnt = _mm_setzero_si128();
+        }
+    }
+    for (; i<n; ++i) cnt += v[i] == x;
+    _mm_storeu_si128((__m128i*)buf, vcnt);
+    for (j=0; j<16; ++j) cnt -= buf[j];
+    return cnt;
+}
+```
+-->
+
+
+</div>
+<!--closing page content-->
+
+<p style="text-align: center;">
+	<a href="https://validator.w3.org/check/referrer">
+		<img src="./esercitazione6_files/valid-xhtml10" alt="Valid XHTML 1.0 Transitional" height="31" width="88">
+	</a>&nbsp;&nbsp;&nbsp;
+    <a href="https://jigsaw.w3.org/css-validator/check/referer">
+        <img style="border:0;width:88px;height:31px" src="./esercitazione6_files/vcss" alt="Valid CSS!">
+    </a>
+</p>
+
+<script type="text/javascript">
+	//<![CDATA[
+	var cusid_ele = document.getElementsByClassName('language-scala');
+	for (var i = 0; i < cusid_ele.length; ++i) {
+	    var elem = cusid_ele[i].getElementsByTagName("code")[0];
+		elem.className = "hljs scala";
+	}
+	var cusid_ele = document.getElementsByClassName('language-cpp');
+	for (var i = 0; i < cusid_ele.length; ++i) {
+	    var elem = cusid_ele[i].getElementsByTagName("code")[0];
+		elem.className = "hljs cpp";
+	}
+	//]]>
+</script>
+
+
+
+</body></html>
