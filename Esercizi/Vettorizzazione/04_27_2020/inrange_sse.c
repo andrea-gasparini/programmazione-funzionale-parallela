@@ -10,7 +10,7 @@ int inrange_seq(const short* data, unsigned n, short min, short max) {
 	return 1;
 }
 
-int inrange_sse(const shor* data, unsigned n, short min, short max) {
+int inrange_sse(const short* data, unsigned n, short min, short max) {
 	int i;
 	__m128i minv, maxv, datav, res;
 	// min-1 e max-1 necessari perché l'operatore vettoriale confronta strettamente
@@ -18,7 +18,7 @@ int inrange_sse(const shor* data, unsigned n, short min, short max) {
 	maxv = _mm_set_epi16(max-1,max-1,max-1,max-1,max-1,max-1,max-1,max-1);
 
 	for (i = 0; i + 7 < n; i += 8) {
-		datav = _mm_loadu_si128(const __m128*)(data + i));
+		datav = _mm_loadu_si128((const __m128*)(data + i));
 
 		// comparazione vettoriale val datav >= val min (datav >= min <--> datav > min-1)
 		// il risultato ha val = 1 se val datav > val minv, 0 altrimenti
