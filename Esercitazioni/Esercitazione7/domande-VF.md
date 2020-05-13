@@ -1,7 +1,7 @@
 ## Domanda 1: V
 
 Il seguente frammento di codice Scala genera errori di compilazione:
-```
+```scala
 def f(x:Int) = x
 val v = f
 ```
